@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -128,6 +127,7 @@
             font-size: 0.875rem;
             transition: var(--transition);
             position: relative;
+            white-space: nowrap;
         }
 
         .nav-links a:hover {
@@ -161,6 +161,7 @@
             cursor: pointer;
             transition: var(--transition);
             color: var(--text-secondary);
+            flex-shrink: 0;
         }
 
         .theme-toggle:hover {
@@ -441,6 +442,29 @@
             gap: 2rem;
         }
 
+        .featured-projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .subsection-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .subsection-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 3rem 0;
+        }
+
         .project-card {
             background: var(--bg-secondary);
             border-radius: var(--radius-lg);
@@ -451,10 +475,24 @@
             position: relative;
         }
 
+        .project-card.featured {
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.08);
+        }
+
+        .featured-star {
+            color: var(--accent);
+            margin-right: 0.4rem;
+        }
+
         .project-card:hover {
             transform: translateY(-8px);
             box-shadow: var(--shadow-xl);
             border-color: var(--primary);
+        }
+
+        .project-card.featured:hover {
+            border-color: var(--accent);
         }
 
         .project-header {
@@ -499,6 +537,11 @@
             color: #8b5cf6;
         }
 
+        .badge-featured {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--accent);
+        }
+
         .project-body {
             padding: 1.5rem;
         }
@@ -540,80 +583,113 @@
             gap: 0.75rem;
         }
 
-        /* Highlighted Main Projects */
-        .project-card.highlighted {
-            border: 2px solid var(--primary);
-            box-shadow: 0 0 20px rgba(37, 99, 235, 0.2);
+        .project-github {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
         }
 
-        .project-card.highlighted:hover {
-            box-shadow: 0 0 30px rgba(37, 99, 235, 0.3);
-        }
-
-        .project-card.highlighted .project-header {
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
-        }
-
-        /* ML Projects Folder */
-        .ml-folder {
-            margin-top: 3rem;
-        }
-
-        .ml-folder-header {
+        .project-github-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
-            gap: 1rem;
-            cursor: pointer;
-            padding: 1.5rem;
-            background: var(--bg-secondary);
-            border-radius: var(--radius-lg);
-            border: 2px solid var(--border);
-            transition: var(--transition);
+            gap: 0.4rem;
         }
 
-        .ml-folder-header:hover {
-            border-color: var(--primary);
-            background: var(--bg-tertiary);
+        .project-github-row {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
         }
 
-        .ml-folder-icon {
-            font-size: 2rem;
-            color: var(--primary);
-            transition: var(--transition);
-        }
-
-        .ml-folder-header.open .ml-folder-icon {
-            transform: rotate(90deg);
-        }
-
-        .ml-folder-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .ml-folder-content {
-            display: none;
-            margin-top: 1.5rem;
-            animation: slideDown 0.3s ease-out;
-        }
-
-        .ml-folder-content.open {
-            display: grid;
-        }
-
-        .ml-project-card {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
+        .project-github-input {
+            flex: 1;
+            background: var(--bg-primary);
             border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+            color: var(--text-primary);
             transition: var(--transition);
         }
 
-        .ml-project-card:hover {
-            transform: translateY(-4px);
+        .project-github-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .project-view-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .project-view-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* ML Projects Section */
+        .ml-toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            width: 100%;
+            padding: 1.25rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .ml-toggle-btn:hover {
+            transform: translateY(-2px);
             box-shadow: var(--shadow-lg);
-            border-color: var(--secondary);
+        }
+
+        .ml-toggle-btn i.chevron {
+            transition: transform 0.3s ease;
+        }
+
+        .ml-toggle-btn.open i.chevron {
+            transform: rotate(180deg);
+        }
+
+        .ml-projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.5s ease, opacity 0.4s ease, margin-top 0.4s ease;
+        }
+
+        .ml-projects-grid.open {
+            max-height: 3000px;
+            opacity: 1;
         }
 
         /* Education Section */
@@ -684,11 +760,79 @@
             gap: 1rem;
             color: var(--text-muted);
             font-size: 0.875rem;
+            flex-wrap: wrap;
         }
 
         .education-icon {
             font-size: 1.5rem;
             margin-bottom: 1rem;
+        }
+
+        /* Certifications Section */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .cert-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .cert-icon {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .cert-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .cert-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .cert-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .pill-score {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--secondary);
+        }
+
+        .pill-rank {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent);
+        }
+
+        .pill-subject {
+            background: var(--primary-light);
+            color: var(--primary);
         }
 
         /* Contact Section */
@@ -964,7 +1108,9 @@
                 font-size: 2rem;
             }
 
-            .projects-grid {
+            .projects-grid,
+            .featured-projects-grid,
+            .ml-projects-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -972,7 +1118,8 @@
                 grid-template-columns: 1fr;
             }
 
-            .contact-grid {
+            .contact-grid,
+            .cert-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -1038,6 +1185,11 @@
                 display: none;
             }
 
+            .ml-projects-grid {
+                max-height: none !important;
+                opacity: 1 !important;
+            }
+
             .hero {
                 min-height: auto;
                 padding: 2rem;
@@ -1061,7 +1213,9 @@
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
             <a href="#projects">Projects</a>
+            <a href="#ml-projects">ML Projects</a>
             <a href="#education">Education</a>
+            <a href="#certifications">Certifications</a>
             <a href="#contact">Contact</a>
             <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
                 <i class="fas fa-moon" id="theme-icon"></i>
@@ -1077,11 +1231,11 @@
         </div>
         <div class="hero-text">
             <h1>Dhanyashree S</h1>
-            <div class="hero-subtitle">B.E. Computer Science & Engineering · Coimbatore Institute of Engineering and Technology</div>
+            <div class="hero-subtitle">B.E. Computer Science & Engineering (Honours) · Coimbatore Institute of Engineering and Technology</div>
             <div class="hero-bio">Computer Science student with a strong foundation in software development and system design. Experienced in building full-stack applications, REST APIs, and data-driven solutions using machine learning and analytics. Passionate about system design, optimization, and writing clean, efficient code.</div>
             <div class="hero-tags">
                 <span class="tag tag-blue"><i class="fas fa-graduation-cap"></i> 3rd Year</span>
-                <span class="tag tag-blue"><i class="fas fa-laptop-code"></i> B.E. CSE</span>
+                <span class="tag tag-blue"><i class="fas fa-laptop-code"></i> B.E. CSE (Honours)</span>
                 <span class="tag tag-green"><i class="fas fa-briefcase"></i> Open to opportunities</span>
                 <span class="tag tag-amber"><i class="fas fa-star"></i> CGPA 8.8</span>
             </div>
@@ -1223,15 +1377,15 @@
         <h2 class="section-title">Featured Projects</h2>
         <p class="section-subtitle">Showcasing my technical expertise and problem-solving abilities</p>
     </div>
-    
-    <h3 style="font-size: 1.5rem; font-weight: 600; color: var(--primary); margin-bottom: 2rem;">Main Projects</h3>
-    
-    <div class="projects-grid" id="proj-grid">
 
-        <div class="project-card highlighted">
+    <!-- Highlighted / Main Projects -->
+    <div class="subsection-label"><i class="fas fa-fire" style="color: var(--accent);"></i> Main Projects</div>
+    <div class="featured-projects-grid" id="featured-grid">
+
+        <div class="project-card featured">
             <div class="project-header">
-                <h3 class="project-title">Medical Tracker Pro</h3>
-                <span class="project-badge badge-fullstack">Full Stack</span>
+                <h3 class="project-title"><span class="featured-star">⭐</span>Medical Tracker Pro</h3>
+                <span class="project-badge badge-featured">Featured · Full Stack</span>
             </div>
             <div class="project-body">
                 <p class="project-description">Healthcare management system with OCR prescription scanning, real-time medication reminders, AI-powered adherence analytics, and emergency alert system for patients and caregivers.</p>
@@ -1242,184 +1396,215 @@
                     <span class="tech-tag">WebSocket</span>
                     <span class="tech-tag">JWT</span>
                 </div>
-                <a href="#" class="project-link" id="link-medical">
+                <a href="#" class="project-link" id="link-medical" target="_blank">
                     <i class="fas fa-external-link-alt"></i>
                     View Project
                 </a>
+                <div class="project-github">
+                    <div class="project-github-label"><i class="fab fa-github"></i> GitHub Link</div>
+                    <div class="project-github-row">
+                        <input type="url" class="project-github-input" placeholder="https://github.com/..." onchange="document.getElementById('link-medical').href=this.value;" />
+                        <a href="#" class="project-view-btn" id="view-medical" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> View
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="project-card highlighted">
+        <div class="project-card featured">
             <div class="project-header">
-                <h3 class="project-title">Blood Group Detection</h3>
-                <span class="project-badge badge-ml">Machine Learning</span>
+                <h3 class="project-title"><span class="featured-star">⭐</span>Blood Group Detection</h3>
+                <span class="project-badge badge-featured">Featured · Machine Learning</span>
             </div>
             <div class="project-body">
-                <p class="project-description">Machine learning system for blood group detection from medical images using computer vision and deep learning techniques for accurate classification.</p>
+                <p class="project-description">Image-based blood group detection system that classifies blood samples from fingerprint/sample images using a trained deep learning model, aimed at fast and reliable blood typing in clinical settings.</p>
                 <div class="project-tech">
                     <span class="tech-tag">Python</span>
-                    <span class="tech-tag">OpenCV</span>
                     <span class="tech-tag">TensorFlow</span>
-                    <span class="tech-tag">Keras</span>
+                    <span class="tech-tag">OpenCV</span>
+                    <span class="tech-tag">CNN</span>
                 </div>
-                <a href="#" class="project-link" id="link-rum">
+                <a href="#" class="project-link" id="link-bloodgroup" target="_blank">
                     <i class="fas fa-external-link-alt"></i>
                     View Project
                 </a>
+                <div class="project-github">
+                    <div class="project-github-label"><i class="fab fa-github"></i> GitHub Link</div>
+                    <div class="project-github-row">
+                        <input type="url" class="project-github-input" placeholder="https://github.com/..." onchange="document.getElementById('link-bloodgroup').href=this.value;" />
+                        <a href="#" class="project-view-btn" id="view-bloodgroup" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> View
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="project-card highlighted">
+        <div class="project-card featured">
             <div class="project-header">
-                <h3 class="project-title">Smart Attendance App</h3>
-                <span class="project-badge badge-fullstack">Full Stack</span>
+                <h3 class="project-title"><span class="featured-star">⭐</span>Smart Attendance App</h3>
+                <span class="project-badge badge-featured">Featured · Full Stack</span>
             </div>
             <div class="project-body">
-                <p class="project-description">Secure, role-based QR attendance system with dynamic 30-second rotating QR codes to prevent proxy attendance and an automated OD approval workflow for educational institutions.</p>
+                <p class="project-description">Mobile-friendly smart attendance application using face recognition and geofencing to mark attendance automatically, with admin dashboards for reports and analytics.</p>
                 <div class="project-tech">
                     <span class="tech-tag">Python</span>
                     <span class="tech-tag">Flask</span>
-                    <span class="tech-tag">MySQL</span>
+                    <span class="tech-tag">OpenCV</span>
+                    <span class="tech-tag">SQLite</span>
                     <span class="tech-tag">JavaScript</span>
-                    <span class="tech-tag">Jinja2</span>
                 </div>
-                <a href="#" class="project-link" id="link-edutrack">
+                <a href="#" class="project-link" id="link-smartattendance" target="_blank">
                     <i class="fas fa-external-link-alt"></i>
                     View Project
                 </a>
+                <div class="project-github">
+                    <div class="project-github-label"><i class="fab fa-github"></i> GitHub Link</div>
+                    <div class="project-github-row">
+                        <input type="url" class="project-github-input" placeholder="https://github.com/..." onchange="document.getElementById('link-smartattendance').href=this.value;" />
+                        <a href="#" class="project-view-btn" id="view-smartattendance" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> View
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
 
-    <!-- Machine Learning Projects Folder -->
-    <div class="ml-folder">
-        <div class="ml-folder-header" onclick="toggleMLFolder()">
-            <i class="fas fa-chevron-right ml-folder-icon"></i>
-            <h3 class="ml-folder-title">Machine Learning Projects <span style="font-size: 0.875rem; color: var(--text-muted); font-weight: 400;">(Click to expand)</span></h3>
-        </div>
-        <div class="ml-folder-content projects-grid" id="ml-folder-content">
-            
-            <div class="ml-project-card">
-                <div class="project-header">
-                    <h3 class="project-title">CarPricePrediction</h3>
-                    <span class="project-badge badge-ml">Machine Learning</span>
-                </div>
-                <div class="project-body">
-                    <p class="project-description">End-to-end machine learning pipeline that predicts used car selling prices based on brand, age, mileage, and fuel type using a regression model with automated feature engineering.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Scikit-learn</span>
-                        <span class="tech-tag">Pandas</span>
-                        <span class="tech-tag">Matplotlib</span>
-                    </div>
-                    <a href="#" class="project-link" id="link-auto">
-                        <i class="fas fa-external-link-alt"></i>
-                        View Project
-                    </a>
-                </div>
-            </div>
+</section>
 
-            <div class="ml-project-card">
-                <div class="project-header">
-                    <h3 class="project-title">CropPrediction</h3>
-                    <span class="project-badge badge-ml">Machine Learning</span>
-                </div>
-                <div class="project-body">
-                    <p class="project-description">Deep learning system for plant disease detection from leaf images with treatment recommendations, farm health analytics dashboard, and mobile-responsive interface for field use.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">PyTorch</span>
-                        <span class="tech-tag">FastAPI</span>
-                        <span class="tech-tag">OpenCV</span>
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">Docker</span>
-                    </div>
-                    <a href="#" class="project-link" id="link-crop">
-                        <i class="fas fa-external-link-alt"></i>
-                        View Project
-                    </a>
-                </div>
-            </div>
-
-            <div class="ml-project-card">
-                <div class="project-header">
-                    <h3 class="project-title">Unemployment_Project</h3>
-                    <span class="project-badge badge-data">Data Analytics</span>
-                </div>
-                <div class="project-body">
-                    <p class="project-description">Interactive analytics dashboard visualizing India's unemployment trends with COVID-19 impact analysis, urban vs rural comparisons, and 12-month ARIMA forecasting.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Streamlit</span>
-                        <span class="tech-tag">Pandas</span>
-                        <span class="tech-tag">Statsmodels</span>
-                    </div>
-                    <a href="#" class="project-link" id="link-unemp">
-                        <i class="fas fa-external-link-alt"></i>
-                        View Project
-                    </a>
-                </div>
-            </div>
-
-            <div class="ml-project-card">
-                <div class="project-header">
-                    <h3 class="project-title">Iris_project</h3>
-                    <span class="project-badge badge-ml">Machine Learning</span>
-                </div>
-                <div class="project-body">
-                    <p class="project-description">Classic machine learning classification project using the Iris dataset. Implements multiple classification algorithms including KNN, SVM, and Decision Tree with accuracy comparison and visualization.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Scikit-learn</span>
-                        <span class="tech-tag">Pandas</span>
-                        <span class="tech-tag">NumPy</span>
-                    </div>
-                    <a href="#" class="project-link" id="link-iris">
-                        <i class="fas fa-external-link-alt"></i>
-                        View Project
-                    </a>
-                </div>
-            </div>
-
-        </div>
+<section id="ml-projects">
+    <div class="section-header">
+        <h2 class="section-title">Machine Learning Projects</h2>
+        <p class="section-subtitle">Click below to explore my ML & data science work</p>
     </div>
 
-    <button class="add-project-btn" onclick="toggleAddForm()">
-        <i class="fas fa-plus-circle"></i>
-        Add a new project
+    <button class="ml-toggle-btn" id="ml-toggle" onclick="toggleMLProjects()">
+        <i class="fas fa-brain"></i>
+        <span>View Machine Learning Projects</span>
+        <i class="fas fa-chevron-down chevron"></i>
     </button>
-    <div class="add-form" id="add-form">
-        <div class="form-grid">
-            <div class="form-group">
-                <label class="form-label">Project name</label>
-                <input type="text" class="form-input" id="np-name" placeholder="e.g. My Awesome App" />
+
+    <div class="ml-projects-grid" id="ml-projects-grid">
+
+        <div class="project-card">
+            <div class="project-header">
+                <h3 class="project-title">Car Price Prediction</h3>
+                <span class="project-badge badge-ml">Machine Learning</span>
             </div>
-            <div class="form-group">
-                <label class="form-label">Category</label>
-                <select class="form-select" id="np-cat">
-                    <option value="fullstack">Full Stack</option>
-                    <option value="ml">Machine Learning</option>
-                    <option value="data">Data Analytics</option>
-                    <option value="sre">DevOps</option>
-                </select>
+            <div class="project-body">
+                <p class="project-description">End-to-end machine learning pipeline that predicts used car selling prices based on brand, age, mileage, and fuel type using a regression model with automated feature engineering.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Scikit-learn</span>
+                    <span class="tech-tag">Pandas</span>
+                    <span class="tech-tag">Matplotlib</span>
+                </div>
+                <a href="#" class="project-link" id="link-carprice" target="_blank">
+                    <i class="fas fa-external-link-alt"></i>
+                    View Project
+                </a>
+                <div class="project-github">
+                    <div class="project-github-label"><i class="fab fa-github"></i> GitHub Link</div>
+                    <div class="project-github-row">
+                        <input type="url" class="project-github-input" placeholder="https://github.com/..." onchange="document.getElementById('link-carprice').href=this.value;" />
+                        <a href="#" class="project-view-btn" id="view-carprice" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> View
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <label class="form-label">Description</label>
-            <textarea class="form-textarea" id="np-desc" placeholder="What does it do? What problem does it solve?"></textarea>
+
+        <div class="project-card">
+            <div class="project-header">
+                <h3 class="project-title">Crop Prediction</h3>
+                <span class="project-badge badge-ml">Machine Learning</span>
+            </div>
+            <div class="project-body">
+                <p class="project-description">Classification model that recommends the most suitable crop to cultivate based on soil nutrients (N, P, K), temperature, humidity, pH, and rainfall data.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Scikit-learn</span>
+                    <span class="tech-tag">Pandas</span>
+                    <span class="tech-tag">NumPy</span>
+                </div>
+                <a href="#" class="project-link" id="link-cropprediction" target="_blank">
+                    <i class="fas fa-external-link-alt"></i>
+                    View Project
+                </a>
+                <div class="project-github">
+                    <div class="project-github-label"><i class="fab fa-github"></i> GitHub Link</div>
+                    <div class="project-github-row">
+                        <input type="url" class="project-github-input" placeholder="https://github.com/..." onchange="document.getElementById('link-cropprediction').href=this.value;" />
+                        <a href="#" class="project-view-btn" id="view-cropprediction" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> View
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label class="form-label">Tech stack (comma separated)</label>
-            <input type="text" class="form-input" id="np-tech" placeholder="e.g. React, Node.js, MongoDB" />
+
+        <div class="project-card">
+            <div class="project-header">
+                <h3 class="project-title">Unemployment Project</h3>
+                <span class="project-badge badge-data">Data Analytics</span>
+            </div>
+            <div class="project-body">
+                <p class="project-description">Interactive analytics dashboard visualizing India's unemployment trends with COVID-19 impact analysis, urban vs rural comparisons, and 12-month ARIMA forecasting.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Streamlit</span>
+                    <span class="tech-tag">Pandas</span>
+                    <span class="tech-tag">Statsmodels</span>
+                </div>
+                <a href="#" class="project-link" id="link-unemp" target="_blank">
+                    <i class="fas fa-external-link-alt"></i>
+                    View Project
+                </a>
+                <div class="project-github">
+                    <div class="project-github-label"><i class="fab fa-github"></i> GitHub Link</div>
+                    <div class="project-github-row">
+                        <input type="url" class="project-github-input" placeholder="https://github.com/..." onchange="document.getElementById('link-unemp').href=this.value;" />
+                        <a href="#" class="project-view-btn" id="view-unemp" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> View
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label class="form-label">GitHub link</label>
-            <input type="url" class="form-input" id="np-link" placeholder="https://github.com/yourusername/repo" />
+
+        <div class="project-card">
+            <div class="project-header">
+                <h3 class="project-title">Iris Project</h3>
+                <span class="project-badge badge-ml">Machine Learning</span>
+            </div>
+            <div class="project-body">
+                <p class="project-description">Classic classification project using the Iris flower dataset to classify species based on petal and sepal measurements, comparing multiple algorithms for accuracy.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Scikit-learn</span>
+                    <span class="tech-tag">Pandas</span>
+                    <span class="tech-tag">Seaborn</span>
+                </div>
+                <a href="#" class="project-link" id="link-iris" target="_blank">
+                    <i class="fas fa-external-link-alt"></i>
+                    View Project
+                </a>
+                <div class="project-github">
+                    <div class="project-github-label"><i class="fab fa-github"></i> GitHub Link</div>
+                    <div class="project-github-row">
+                        <input type="url" class="project-github-input" placeholder="https://github.com/..." onchange="document.getElementById('link-iris').href=this.value;" />
+                        <a href="#" class="project-view-btn" id="view-iris" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> View
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-actions">
-            <button class="btn btn-secondary" onclick="toggleAddForm()">Cancel</button>
-            <button class="btn btn-primary" onclick="addProject()">Add Project</button>
-        </div>
+
     </div>
 </section>
 
@@ -1434,7 +1619,7 @@
                 <div class="education-icon">
                     <i class="fas fa-graduation-cap" style="color: var(--primary);"></i>
                 </div>
-                <h3 class="education-title">B.E. Computer Science & Engineering</h3>
+                <h3 class="education-title">B.E. Computer Science & Engineering (Honours)</h3>
                 <div class="education-institution">Coimbatore Institute of Engineering and Technology</div>
                 <div class="education-meta">
                     <span><i class="fas fa-calendar"></i> 2022 – 2026</span>
@@ -1483,6 +1668,44 @@
     </div>
 </section>
 
+<section id="certifications">
+    <div class="section-header">
+        <h2 class="section-title">Certifications</h2>
+        <p class="section-subtitle">Courses and credentials earned along the way</p>
+    </div>
+    <div class="cert-grid">
+
+        <div class="cert-card">
+            <div class="cert-icon"><i class="fas fa-certificate"></i></div>
+            <h3 class="cert-title">NPTEL – Human Computer Interaction (HCI)</h3>
+            <div class="education-institution" style="font-size: 1rem;">National Programme on Technology Enhanced Learning</div>
+            <div class="cert-meta">
+                <span class="cert-pill pill-rank"><i class="fas fa-trophy"></i> Topper of the Batch</span>
+                <span class="cert-pill pill-score"><i class="fas fa-chart-line"></i> Score: 98%</span>
+            </div>
+        </div>
+
+        <div class="cert-card">
+            <div class="cert-icon"><i class="fas fa-certificate"></i></div>
+            <h3 class="cert-title">Software Project Management</h3>
+            <div class="education-institution" style="font-size: 1rem;">NPTEL / Infosys Springboard</div>
+            <div class="cert-meta">
+                <span class="cert-pill pill-subject"><i class="fas fa-tasks"></i> Project Management</span>
+            </div>
+        </div>
+
+        <div class="cert-card">
+            <div class="cert-icon"><i class="fas fa-certificate"></i></div>
+            <h3 class="cert-title">R Programming</h3>
+            <div class="education-institution" style="font-size: 1rem;">NPTEL / Infosys Springboard</div>
+            <div class="cert-meta">
+                <span class="cert-pill pill-subject"><i class="fas fa-chart-bar"></i> Data Analysis</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
 <section id="contact">
     <div class="section-header">
         <h2 class="section-title">Get In Touch</h2>
@@ -1513,35 +1736,6 @@
             </div>
         </div>
 
-        <div style="margin-top: 3rem;">
-            <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: 2rem;">Project GitHub Links</h3>
-            <div class="contact-grid">
-                <div class="contact-card" style="flex-direction: column; align-items: flex-start;">
-                    <div class="contact-label">EduTrack</div>
-                    <input type="url" class="contact-input" placeholder="GitHub repo link" onchange="document.getElementById('link-edutrack').href=this.value;" style="text-align: left;" />
-                </div>
-                <div class="contact-card" style="flex-direction: column; align-items: flex-start;">
-                    <div class="contact-label">Medical Tracker Pro</div>
-                    <input type="url" class="contact-input" placeholder="GitHub repo link" onchange="document.getElementById('link-medical').href=this.value;" style="text-align: left;" />
-                </div>
-                <div class="contact-card" style="flex-direction: column; align-items: flex-start;">
-                    <div class="contact-label">AutoPrice Predictor</div>
-                    <input type="url" class="contact-input" placeholder="GitHub repo link" onchange="document.getElementById('link-auto').href=this.value;" style="text-align: left;" />
-                </div>
-                <div class="contact-card" style="flex-direction: column; align-items: flex-start;">
-                    <div class="contact-label">Unemployment Dashboard</div>
-                    <input type="url" class="contact-input" placeholder="GitHub repo link" onchange="document.getElementById('link-unemp').href=this.value;" style="text-align: left;" />
-                </div>
-                <div class="contact-card" style="flex-direction: column; align-items: flex-start;">
-                    <div class="contact-label">CropHealth AI</div>
-                    <input type="url" class="contact-input" placeholder="GitHub repo link" onchange="document.getElementById('link-crop').href=this.value;" style="text-align: left;" />
-                </div>
-                <div class="contact-card" style="flex-direction: column; align-items: flex-start;">
-                    <div class="contact-label">blood group Detection</div>
-                    <input type="url" class="contact-input" placeholder="https://github.com/dhanya940/blood_group_detection" onchange="document.getElementById('link-rum').href=this.value;" style="text-align: left;" />
-                </div>
-            </div>
-        </div>
     </div>
 </section>
 
@@ -1637,87 +1831,18 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Form toggle function
-function toggleAddForm() {
-    const form = document.getElementById('add-form');
-    form.classList.toggle('open');
-}
+// Machine Learning Projects toggle
+function toggleMLProjects() {
+    const grid = document.getElementById('ml-projects-grid');
+    const btn = document.getElementById('ml-toggle');
+    grid.classList.toggle('open');
+    btn.classList.toggle('open');
 
-// ML Folder toggle function
-function toggleMLFolder() {
-    const header = document.querySelector('.ml-folder-header');
-    const content = document.getElementById('ml-folder-content');
-    
-    header.classList.toggle('open');
-    content.classList.toggle('open');
-}
-
-// Badge mapping for projects
-const badgeMap = {
-    fullstack: 'badge-fullstack',
-    ml: 'badge-ml', 
-    data: 'badge-data',
-    sre: 'badge-sre'
-};
-
-const badgeLabel = {
-    fullstack: 'Full Stack',
-    ml: 'Machine Learning',
-    data: 'Data Analytics',
-    sre: 'DevOps'
-};
-
-// Add project function
-function addProject() {
-    const name = document.getElementById('np-name').value.trim();
-    const desc = document.getElementById('np-desc').value.trim();
-    const tech = document.getElementById('np-tech').value.trim();
-    const link = document.getElementById('np-link').value.trim();
-    const cat = document.getElementById('np-cat').value;
-    
-    if (!name) {
-        alert('Please enter a project name');
-        return;
+    if (grid.classList.contains('open')) {
+        btn.querySelector('span').textContent = 'Hide Machine Learning Projects';
+    } else {
+        btn.querySelector('span').textContent = 'View Machine Learning Projects';
     }
-    
-    const tags = tech ? tech.split(',').map(t => `<span class="tech-tag">${t.trim()}</span>`).join('') : '';
-    const id = 'link-' + Date.now();
-    
-    const card = document.createElement('div');
-    card.className = 'project-card';
-    card.innerHTML = `
-        <div class="project-header">
-            <h3 class="project-title">${name}</h3>
-            <span class="project-badge ${badgeMap[cat]}">${badgeLabel[cat]}</span>
-        </div>
-        <div class="project-body">
-            <p class="project-description">${desc}</p>
-            <div class="project-tech">${tags}</div>
-            ${link ? `<a href="${link}" class="project-link" id="${id}" target="_blank">
-                <i class="fas fa-external-link-alt"></i>
-                View Project
-            </a>` : ''}
-        </div>
-    `;
-    
-    document.getElementById('proj-grid').appendChild(card);
-    
-    // Clear form
-    ['np-name', 'np-desc', 'np-tech', 'np-link'].forEach(id => {
-        document.getElementById(id).value = '';
-    });
-    
-    // Close form
-    document.getElementById('add-form').classList.remove('open');
-    
-    // Add animation
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    setTimeout(() => {
-        card.style.transition = 'all 0.5s ease';
-        card.style.opacity = '1';
-        card.style.transform = 'translateY(0)';
-    }, 100);
 }
 
 // Update social links based on input
